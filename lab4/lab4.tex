@@ -1,0 +1,172 @@
+\documentclass[12pt]{article}
+\usepackage{ctex} % 中文支持
+\usepackage{titling} % 标题格式定制
+\usepackage{lipsum} % 示例文本
+\usepackage{titlesec} % 标题格式定制
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{float}
+\usepackage{color}
+\usepackage{geometry}
+\usepackage{multirow}
+\geometry{left=2.5cm,right=2.5cm,top=2.54cm,bottom=2.0cm}
+
+% 设置标题格式
+\titleformat{\section}{\centering\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\centering\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\centering\normalsize\bfseries}{\thesubsubsection}{1em}{}
+
+% 调整标题位置
+\setlength{\droptitle}{-4cm}
+
+\begin{document}
+
+\title{\huge{\textbf{2024秋数值代数-实验报告\#4}}}
+\author{姓名：\underline{李奕萱} \hspace{1cm}学号：\underline{PB22000161} }
+\date{\today}
+
+\maketitle
+
+运行环境：\underline{win11,vscode,py3}
+
+\section{实验内容与要求}
+\bf 
+{病态线性方程组的求解}
+
+
+问题提出：理论上的分析表明，求解病态的线性方程组是有困难的。实际情况是否如此，具体计算过程中究竟会出现怎样的现象呢？
+
+{\textcolor{blue}实验内容}：考虑线性方程组~$\textcolor{blue}{Hx = b}$, 其中~H~为n阶~{\color{blue}Hilbert 矩阵}, 即
+
+$$\textcolor{blue}{ H=(h_{ij})_{n\times n}, \qquad  h_{ij}=\frac{1}{i+j-1},\quad i,j=1,2,\cdots,n  }$$
+
+这是一个著名的病态问题。通过先给{\color{blue}定解}, 比如{\color{red}\bf 取~$x$~的各个分量为1}, 再计算出右端向量~$\color{blue}b$~的办法给出一个精确解已知的问题.
+
+{\color{blue} 实验要求}：
+
+(1) 分别编写~Jacobi~迭代法,~Gauss-Seidel~迭代法以及最速下降法(SD)的一般程序({\color{red}不得使用符号运算})；
+
+(2) 所有迭代的{\color{red}初始向量均取为0向量, 停止条件为~$\|x^{(k+1)}  - x^{(k)} \|_1 < \epsilon \doteq 5\times 10^{-4}$~或迭代步数超过50万(可视为迭代失败)};
+
+(3) 用以上三种迭代去求解前述的病态方程组,
+分别取阶数~{\color{red} n=10,50,100,200,800};
+
+(4) 列表给出{\bf 各自}{\color{blue}数值解}的计算误差({\bf\color{red}1-范数下})以及迭代步数;
+    报告数值实验过程中可能出现的计算问题;
+%以及本次编程实验的经验和教训.
+%再分别取矩阵阶数n=10,50,200,500，重复(2)；仍然用上述的两种计算方法去求解，请分别{\color{blue}报告各自的数值结果}({\bf\color{red}数值解和1-范数下的计算误差})以及{\color{blue}计算过程中可能出现的问题}；
+
+%(4) 对LU 分解，请分别报告n=6和10时的LU 分解的分解结果，即{\color{blue}给出对应的三角矩阵L和U}.
+%
+(5) {\bf 分析并比较以上三种迭代方法, 你能得出什么结论或经验教训．}
+\clearpage
+
+
+\section{数值结果}
+
+{\bf --数值解误差及迭代步数}
+
+\begin{table}[htb]
+\begin{center}
+\begin{tabular}{|c|c|c|c|} % 2列，每列居中对齐
+\hline
+               n              &  迭代法 & \quad 迭代步数 $\quad \;$ &  绝对误差~\color{blue}$\|x^{(k)} -x \|_1$ \\ \hline
+   \multirow{3}{*}{n=10}      & \color{blue} Jacobi  &500000  & nan \\ \hline
+                              & \color{blue}  Gauss-Seidel & 614 & 0.43287027795357225\\ \hline
+                              & \color{blue}  SD & 317 & 0.1728045622586729\\ \hline \hline
+    \multirow{3}{*}{n=50}      & \color{blue} Jacobi  &500000  &nan  \\ \hline
+                              & \color{blue}  Gauss-Seidel & 2369 & 1.0927517603077161\\ \hline
+                              & \color{blue}  SD &  625 &0.626794251788232 \\ \hline \hline
+     \multirow{3}{*}{n=100}      & \color{blue} Jacobi  &500000  &nan \\  \hline
+                              & \color{blue}  Gauss-Seidel & 3824 &1.9001978360241425 \\  \hline
+                              & \color{blue}  SD &1109  & 0.9452248433669382\\ \hline \hline       
+    \multirow{3}{*}{n=200}      & \color{blue} Jacobi  & 500000 &  nan\\  \hline
+                              & \color{blue}  Gauss-Seidel & 5992 & 3.2994818463879247\\  \hline
+                              & \color{blue}  SD & 1915 & 1.5143794069153476\\ \hline \hline            
+    \multirow{3}{*}{n=800}      & \color{blue} Jacobi  & 500000 & nan \\  \hline
+                              & \color{blue}  Gauss-Seidel &15944  &8.908334089350323 \\  \hline
+                              & \color{blue}  SD &  5481 & 3.978635541478246\\ \hline %\hline                                                                       
+
+\end{tabular}
+\end{center}
+\caption{数值结果}
+\end{table}
+
+
+\section{算法分析}
+%从表1中，不难观察到
+\begin{itemize}
+    \item Jacobi迭代收敛性差
+    \item SD迭代收敛效果最好
+    \item Gauss\_Seidel迭代较Jacobi迭代更好，但在病态矩阵中跑不过SD迭代
+\end{itemize}
+
+
+\section{实验小结}
+%\section{算法分析及小结}
+
+ {计算过程中可能出现的问题(包括这次实验中的体会，收获或经验教训)}：
+\begin{itemize}
+\item  {\color{blue}Jacobi迭代：}
+
+收敛性问题：如果矩阵不是对角占优的，Jacobi 方法可能无法收敛。此时，解的精度可能无法满足要求，或者收敛速度过慢。
+
+
+数值稳定性：在高维问题中，Jacobi 方法可能会受到数值稳定性的影响，导致迭代结果不准确。
+\item {\color{blue}Gauss\_Seidel迭代:} 
+
+收敛性问题：虽然 Gauss-Seidel 方法对某些矩阵收敛速度较快，但对于某些特定问题，尤其是条件不好的矩阵，依然可能收敛缓慢或者根本不收敛。
+
+迭代不稳定：对于某些稀疏矩阵或非常不规则的系统，Gauss-Seidel 方法可能变得不稳定，需要更多的迭代次数才能收敛。
+
+\item {\color{blue}SD迭代：}
+
+步长选择问题：步长（或学习率）是最速下降法的关键。如果步长过大，可能导致解不稳定或发散；步长过小，可能导致迭代收敛非常缓慢。
+
+收敛性问题：对于条件较差的矩阵，最速下降法的收敛速度可能非常慢，甚至无法达到所需精度。
+\hfill %\break
+
+{比较三种算法的各自优缺点}：
+\item  {\color{blue}Jacobi:}
+优点：
+简单易实现。
+适用于对角占优的矩阵（对角占优矩阵是指对角线上的元素比其他元素绝对值大）。
+
+缺点：
+收敛性差，特别是对于对角不占优的矩阵。收敛速度较慢。
+对于某些矩阵，可能需要较多的迭代才能得到足够精确的解。
+\item {\color{blue} Gauss\_Seidel迭代:}
+
+优点：
+收敛速度比 Jacobi 迭代法快，特别是对于对角占优的矩阵。
+适用于更广泛的矩阵类型，通常能更早收敛。
+
+缺点：
+需要逐步更新每个变量，这意味着在并行计算中不如 Jacobi 迭代法高效。
+同样，若矩阵条件不好（比如不是对角占优的矩阵），可能导致收敛慢或无法收敛。
+
+\item {\color{blue}SD迭代:}
+
+优点：
+对于某些问题，最速下降法的收敛速度非常快，特别是当问题的解是线性系统的最小二乘解时。
+可以应用于非对称矩阵或不规则问题中，适应性强。
+
+缺点：
+对于条件不良的矩阵，最速下降法可能会收敛得非常慢，甚至在某些情况下无法收敛。
+需要选择合适的步长，步长的选择直接影响到算法的收敛速度。如果步长过大，可能会跳过最优解；步长过小，可能会导致收敛速度非常慢。
+
+\end{itemize}
+{\color{blue}小结：}Jacobi迭代适合用在问题规模较小或矩阵满足对角占优的情况下。
+
+对于收敛速度要求较高且矩阵条件较好的问题，Gauss-Seidel 方法非常有效。
+
+最速下降法适用于最小二乘问题和那些要求快速找到近似解的问题，尤其是高维问题中，适用范围较广。
+
+在选择算法时，应该根据问题的矩阵性质（如对角占优）来选择合适的算法，算法不合适
+可能导致无法收敛或求解错误。
+
+在病态矩阵的求解中，最速下降法表现最好。
+
+\end{document}
+
+
